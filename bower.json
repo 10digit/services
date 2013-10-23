@@ -1,6 +1,6 @@
 {
     "name": "services",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "./services.js",
     "ignore": [
         "**/.*",
@@ -9,9 +9,9 @@
     ],
     "dependencies": {
         "angular": "*",
-        "10digit/utils": "~0.0.0",
-        "10digit/validation": "~0.0.0",
-        "10digit/geo": "~0.0.0",
+        "10digit-utils": "*",
+        "10digit-validation": "*",
+        "10digit-geo": "*",
         "angular-grid": "*"
     }
 }
