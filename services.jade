@@ -1,0 +1,98 @@
+div.alert.alert-success(ng-show="success")
+    button.close(type="button", ng-click="success=false", data-dismiss="alert", ng-show="success") &times;
+    p {{success}}
+div(ng-repeat="service in services", ng-form="serviceForm", ng-controller='ServiceCtrl')
+    div.alert.alert-error(ng-show="error")
+        button.close(type="button", ng-click="success=false", data-dismiss="alert") &times;
+        p {{error}}
+    div.alert.alert-success(ng-show="success")
+        button.close(type="button", ng-click="success=false", data-dismiss="alert") &times;
+        p {{success}}
+    div.alert.alert-error(ng-show="serviceForm.$invalid && submitted")
+        p(ng-show="serviceForm.number.$error['required']") You must enter the phone number you want to transfer to us.
+        p(ng-show="serviceForm.number.$error['ngp-valid-phone']") You must enter a valid phone number.
+        p(ng-show="serviceForm.forwardTo.$error['required']") "Forwarding Number" is required.
+        p(ng-show="serviceForm.btn.$error['required']") The MAIN number on your phone bill is required.
+        p(ng-show="serviceForm.carrier.$error['required']") You must tell us who your previous carrier was.
+        p(ng-show="serviceForm.account_name.$error['required']") You must enter the name used on your previous service provider account.
+        p(ng-show="serviceForm.country.$error['required']") "Service Country" is required.
+        p(ng-show="serviceForm.state.$error['required']") "Service State" is required.
+        p(ng-show="serviceForm.zip.$error['required']") "Service State" is required.
+        p(ng-show="serviceForm.city.$error['required']") "Service City" is required.
+        p(ng-show="serviceForm.address.$error['required']") "Service Address" is required.
+        p(ng-show="serviceForm.phoneBill.$error['required']") You must upload your phone bill.
+
+    .row-fluid
+        .span12
+            h4.pull-left {{title()}}
+            a.btn.pull-right.btn-danger(ng-click="remove(service)", style="margin-top:5px") Remove this Number
+    .row-fluid
+        .span4
+            div(ng-show="signup || service.signup")
+                label What is the phone number?
+                input(type="text", name="number", ng-label="Phone Number", ng-model="service.number", default="New Number", ui-mask="(999) 999-9999", ng-required, tooltip="Must be unique to our system.", tooltip-trigger="focus", tooltip-placement="right", ngp-valid-phone, ng-required)
+            label.checkbox Do you want to send your calls to another number?
+                input(type="checkbox", ng-model="service.forward", value="true")
+            label(ng-show="service.forward") Forwarding Number
+            input(type="text", name="forwardTo", ng-model="service.forwardTo", ng-show="service.forward", ng-required="service.forward", ui-mask="(999) 999-9999")
+            div(ng-show="signup || service.signup")
+                label.checkbox Has service to this number been cancelled?
+                    input(type="checkbox", ng-model="service.cancelled")
+                label.checkbox Is there more than one number on your phone bill?
+                    input(type="checkbox", ng-model="service.not_only", value="true")
+                label(ng-show="service.not_only") What is the MAIN phone number on the bill?
+                input(type="text", name="btn", ng-model="service.btn", ng-required="service.not_only && (signup || service.signup)", ui-mask="(999) 999-9999", ng-show="service.not_only", tooltip='This is also known as your "billing telephone number."', tooltip-trigger="focus", tooltip-placement="right")
+            h5 How will you use this account?
+                span.asterisk *
+            label.radio Personal Use
+                input(type="radio", name="service.type.{{service.number}}", ng-model="service.type", value="personal", ng-checked="service.type == 'personal'")
+            label.radio Business Use
+                input(type="radio", name="service.type.{{service.number}}", ng-model="service.type", value="business", ng-checked="service.type == 'business'")
+            label.radio Toll Free Use
+                input(type="radio", name="service.type.{{service.number}}", ng-model="service.type", value="toll free", ng-checked="service.type == 'toll free'")
+            div(ng-show="signup || service.signup")
+                div(ng-show="service.phoneBill.length > 0")
+                    p
+                        strong Phone bill uploaded.
+                div(ng-show="!service.phoneBill.length > 0")
+                    h5#uploadPhoneBill Upload your phone bill
+                    filepicker
+                input(type="hidden", name="phoneBill", ng-required="signup || service.signup", ng-model="service.phoneBill")
+            br(clear="all")
+        .span8(ng-show="!signup && !service.signup && service.forwardTo")
+            h5 Call Log
+            div.gridStyle(ng-grid="gridOptions", ng-show="gridData.length > 0")
+            p.alert(ng-show="gridData.length == 0") You have not received any calls!
+        .span8(ng-show="signup || service.signup")
+            .row-fluid
+                .span6
+                    label Carrier
+                    input(type="text", name="carrier", ng-model="service.old_carrier.carrier", required)
+                    label Account Number
+                    input(type="text", ng-model="service.old_carrier.account_number")
+                    label Name on Account
+                    input(type="text", name="account_name", ng-model="service.old_carrier.name_on_account", required)
+                    label Pin
+                    input(type="text", ng-model="service.old_carrier.pin")
+                    label Last 4 Digits of Social Security #
+                    input(type="text", ng-model="service.old_carrier.social_security")
+                    label.checkbox Is this number a wireless number?
+                        input(type="checkbox", ng-model="service.old_carrier.wireless")
+                .span6
+                    label Service Country
+                    geo-typeahead(name="country", typeahead-factory="Countries", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_country', selected)")
+                    label Service State
+                    geo-typeahead(name="state", typeahead-factory="States", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_state', selected)")
+                    label Service Zip
+                    input(type="text", name="zip", ng-model="service.old_carrier.service_zip", required)
+                    label Service City
+                    input(type="text", name="city", ng-model="service.old_carrier.service_city", required)
+                    label Service Address
+                    input(type="text", name="address", ng-model="service.old_carrier.service_address", required)
+    p
+        a.btn.btn-primary(ng-click="update()", ng-show="!signup && !service.signup") Update
+        br
+    p
+        a.btn.btn-primary(ng-click="finish()", ng-show="(service.signup && !service.existing && !signup)") Finish
+        br
+a.btn(ng-click="addService()") Add another number
