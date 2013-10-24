@@ -2,7 +2,7 @@ angular.module('10digit.services', ['10digit.utils', '10digit.validation', '10di
 
 .factory('ServicesConfig', function(){
     var config = {
-        testMode: true,
+        testMode: false,
         initialValues: {
             service: {
 
