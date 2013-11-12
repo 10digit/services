@@ -30,18 +30,18 @@ div(ng-repeat="service in services", ng-form="serviceForm", ng-controller='Servi
         .span4
             div(ng-show="signup || service.signup")
                 label What is the phone number?
-                input(type="text", name="number", ng-label="Phone Number", ng-model="service.number", default="New Number", ui-mask="(999) 999-9999", ng-required, tooltip="Must be unique to our system.", tooltip-trigger="focus", tooltip-placement="right", ngp-valid-phone, ng-required)
+                input.input-block-level(type="text", name="number", ng-label="Phone Number", ng-model="service.number", default="New Number", ui-mask="(999) 999-9999", ng-required, tooltip="Must be unique to our system.", tooltip-trigger="focus", tooltip-placement="right", ngp-valid-phone, ng-required)
             label.checkbox Do you want to send your calls to another number?
                 input(type="checkbox", ng-model="service.forward", value="true")
             label(ng-show="service.forward") Forwarding Number
-            input(type="text", name="forwardTo", ng-model="service.forwardTo", ng-show="service.forward", ng-required="service.forward", ui-mask="(999) 999-9999")
+            input.input-block-level(type="text", name="forwardTo", ng-model="service.forwardTo", ng-show="service.forward", ng-required="service.forward", ui-mask="(999) 999-9999")
             div(ng-show="signup || service.signup")
                 label.checkbox Has service to this number been cancelled?
                     input(type="checkbox", ng-model="service.cancelled")
                 label.checkbox Is there more than one number on your phone bill?
                     input(type="checkbox", ng-model="service.not_only", value="true")
                 label(ng-show="service.not_only") What is the MAIN phone number on the bill?
-                input(type="text", name="btn", ng-model="service.btn", ng-required="service.not_only && (signup || service.signup)", ui-mask="(999) 999-9999", ng-show="service.not_only", tooltip='This is also known as your "billing telephone number."', tooltip-trigger="focus", tooltip-placement="right")
+                input.input-block-level(type="text", name="btn", ng-model="service.btn", ng-required="service.not_only && (signup || service.signup)", ui-mask="(999) 999-9999", ng-show="service.not_only", tooltip='This is also known as your "billing telephone number."', tooltip-trigger="focus", tooltip-placement="right")
             h5 How will you use this account?
                 span.asterisk *
             label.radio Personal Use
@@ -67,28 +67,28 @@ div(ng-repeat="service in services", ng-form="serviceForm", ng-controller='Servi
             .row-fluid
                 .span6
                     label Carrier
-                    input(type="text", name="carrier", ng-model="service.old_carrier.carrier", required)
+                    input.input-block-level(type="text", name="carrier", ng-model="service.old_carrier.carrier", required)
                     label Account Number
-                    input(type="text", ng-model="service.old_carrier.account_number")
+                    input.input-block-level(type="text", ng-model="service.old_carrier.account_number")
                     label Name on Account
-                    input(type="text", name="account_name", ng-model="service.old_carrier.name_on_account", required)
+                    input.input-block-level(type="text", name="account_name", ng-model="service.old_carrier.name_on_account", required)
                     label Pin
-                    input(type="text", ng-model="service.old_carrier.pin")
+                    input.input-block-level(type="text", ng-model="service.old_carrier.pin")
                     label Last 4 Digits of Social Security #
-                    input(type="text", ng-model="service.old_carrier.social_security")
+                    input.input-block-level(type="text", ng-model="service.old_carrier.social_security")
                     label.checkbox Is this number a wireless number?
                         input(type="checkbox", ng-model="service.old_carrier.wireless")
                 .span6
                     label Service Country
-                    geo-typeahead(name="country", typeahead-factory="Countries", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_country', selected)")
+                    geo-typeahead.input-block-level(name="country", typeahead-factory="Countries", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_country', selected)")
                     label Service State
-                    geo-typeahead(name="state", typeahead-factory="States", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_state', selected)")
+                    geo-typeahead.input-block-level(name="state", typeahead-factory="States", typeahead-required, typeahead-on-select="setParentScope('service.old_carrier', 'service_state', selected)")
                     label Service Zip
-                    input(type="text", name="zip", ng-model="service.old_carrier.service_zip", required)
+                    input.input-block-level(type="text", name="zip", ng-model="service.old_carrier.service_zip", required)
                     label Service City
-                    input(type="text", name="city", ng-model="service.old_carrier.service_city", required)
+                    input.input-block-level(type="text", name="city", ng-model="service.old_carrier.service_city", required)
                     label Service Address
-                    input(type="text", name="address", ng-model="service.old_carrier.service_address", required)
+                    input.input-block-level(type="text", name="address", ng-model="service.old_carrier.service_address", required)
     p
         a.btn.btn-primary(ng-click="update()", ng-show="!signup && !service.signup") Update
         br
