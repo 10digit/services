@@ -69,9 +69,9 @@ angular.module('10digit.services', ['10digit.utils', '10digit.validation', '10di
 		];
 		if(service.forwardTo){
 			service.options.push(makeServiceOption('forwardTo', service.forwardTo));
-			delete service.forward;
 			delete service.forwardTo;
 		}
+	    delete service.forward;
 		delete service.type;
 		delete service.number;
 		delete service.not_only;
