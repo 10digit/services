@@ -146,6 +146,7 @@ angular.module('10digit.services', ['10digit.utils', '10digit.validation', '10di
 		    prepare(submit);
 		    $ajax.run('members/me/numbers/'+service.id, {
 				    method : 'PUT',
+                    data: submit,
 			        success: function(res, status){
 						if(opts.success) opts.success(res, status);
 			        },
