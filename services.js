@@ -45,8 +45,8 @@ angular.module('10digit.services', ['10digit.utils', '10digit.validation', '10di
 		serviceObj = Config.initialValues.service;
 	} else {
 		serviceObj = {
-			type: 'business',
-			forward: true,
+			type: 'personal',
+			forward: null,
 			service: SERVICE_FORWARD,
 			old_carrier: {},
 			phoneBill: {},

@@ -72,10 +72,10 @@ div(ng-repeat="service in services", ng-form="serviceForm", ng-controller='Servi
                     input.input-block-level(type="text", ng-model="service.old_carrier.account_number")
                     label Name on Account
                     input.input-block-level(type="text", name="account_name", ng-model="service.old_carrier.name_on_account", required)
-                    label Pin
-                    input.input-block-level(type="text", ng-model="service.old_carrier.pin")
-                    label Last 4 Digits of Social Security #
-                    input.input-block-level(type="text", ng-model="service.old_carrier.social_security")
+                    // label Pin
+                    // input.input-block-level(type="text", ng-model="service.old_carrier.pin")
+                    // label Last 4 Digits of Social Security #
+                    // input.input-block-level(type="text", ng-model="service.old_carrier.social_security")
                     label.checkbox Is this number a wireless number?
                         input(type="checkbox", ng-model="service.old_carrier.wireless")
                 .span6
